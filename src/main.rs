@@ -29,7 +29,6 @@ fn get_latest_version() -> String {
         .unwrap();
     if let Some(content_disposition) = response.headers().get(reqwest::header::CONTENT_DISPOSITION)
     {
-        println!("content_disposition: {:?}", content_disposition);
         // extract the filename from the content disposition header
         let filename = content_disposition
             .to_str()
