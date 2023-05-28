@@ -54,8 +54,9 @@ const NTFY_CHANNEL: &str = "dcecef08-1839-40ed-b0ed-eee980594295";
 
 fn main() {
     let version = get_latest_version();
-    println!("Published latest: {}", version);
     let archlinux_version = get_archlinux_version("visual-studio-code-insiders-bin");
+    println!("       Installed: {}", archlinux_version);
+    println!("Published latest: {}", version);
 
     if version != archlinux_version {
         let dispatcher = Dispatcher::builder("https://ntfy.sh").build().unwrap();
