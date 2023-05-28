@@ -1,3 +1,4 @@
+use ntfy::{Dispatcher, Payload, Priority};
 use reqwest::blocking::Client;
 
 fn get_latest_version() -> String {
@@ -30,7 +31,16 @@ fn get_latest_version() -> String {
     panic!("Could not get latest version from visualstudio.com");
 }
 
+const NTFY_CHANNEL: &str = "dcecef08-1839-40ed-b0ed-eee980594295";
+
 fn main() {
     println!("Hello, world!");
-    println!("Latest: {}", get_latest_version());
+    let version = get_latest_version();
+    println!("Latest: {}", version);
+    let dispatcher = Dispatcher::builder("https://ntfy.sh").build().unwrap();
+    let payload = Payload::new(NTFY_CHANNEL)
+        .priority(Priority::High)
+        .message(format!("Latest insiders version is {}", version))
+        .title("VSCode Update");
+    dispatcher.send(&payload).unwrap();
 }
