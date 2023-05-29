@@ -59,6 +59,7 @@ fn main() {
     println!("Published latest: {}", version);
 
     if version != archlinux_version {
+        println!("Notifying new version available");
         let dispatcher = Dispatcher::builder("https://ntfy.sh").build().unwrap();
         let payload = Payload::new(NTFY_CHANNEL)
             .priority(Priority::High)
